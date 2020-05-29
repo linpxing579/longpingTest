@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<solrs>
+    <solr>
+        <name>test1</name>
+        <url>http://localhost:8983/solr1</url>
+    </solr>
+
+    <solr>
+        <name>test2</name>
+        <url>http://localhost:8983/solr2</url>
+    </solr>
+
+</solrs>
