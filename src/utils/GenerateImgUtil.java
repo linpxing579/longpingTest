@@ -1,4 +1,4 @@
-package test;
+package utils;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -10,7 +10,7 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class GenerateImgTest {
+public class GenerateImgUtil {
 
 
     public static void main(String[] args) throws IOException {
