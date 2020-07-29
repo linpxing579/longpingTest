@@ -231,20 +231,148 @@ public class Test {
 
 
     public boolean isAnagram(String s, String t) {
-
-        String s1 = s;
-        for (int i = 0; i < s.length(); i++) {
-            int index = t.indexOf(s.charAt(i));
-            if (index == -1) {
+        if (s.length() != t.length()) {
+            return false;
+        }
+        char[] schars = s.toCharArray();
+        char[] tchars = t.toCharArray();
+        Arrays.sort(schars);
+        Arrays.sort(tchars);
+        //蠢
+        for (int i = 0; i < schars.length; i++) {
+            if (schars[i] != tchars[i]) {
                 return false;
             }
-            t = t.substring(index, index + 1);
-            s1 = s1.substring(i, i + 1);
         }
 
-        return "".equals(t) && "".equals(s1);
+        return true;
     }
-    
+
+    //大小写相差32，转换可以使用二进制或与32
+    public boolean isPalindrome(String s) {
+        s = s.toLowerCase();
+        StringBuffer str = new StringBuffer();
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if ((c >= 'a' && c <= 'z') || (c >= '0' && c <= '9')) {
+                str.append(c);
+            }
+        }
+        return str.toString().equals(str.reverse().toString());
+    }
+
+    public int myAtoi(String str) {
+        str = str.trim();
+        if (str.length() == 0) return 0;
+        if ((str.charAt(0) < '0' || str.charAt(0) > '9') && str.charAt(0) != '-' && str.charAt(0) != '+') return 0;
+        StringBuilder s = new StringBuilder();
+        for (int i = 0; i < str.length(); i++) {
+            char c = str.charAt(i);
+            if ((c < '0' || c > '9') && !(s.length() == 0 && (c == '-' || c == '+'))) {
+               break;
+            }
+            s.append(c);
+        }
+        if (s.length() == 1 && (s.charAt(0) == '-' || s.charAt(0) == '+') ) return 0;
+        long l = Long.parseLong(s.toString());
+        if (l > Integer.MAX_VALUE) return Integer.MAX_VALUE ;
+        if (l < Integer.MIN_VALUE) return Integer.MIN_VALUE;
+        return (int) l;
+    }
+
+    public int strStr(String haystack, String needle) {
+        return haystack.indexOf(needle);
+    }
+
+    public String countAndSay(int n) {
+        if (n == 1) {
+            return "1";
+        }
+
+        String result = "1";
+        for (int i = 2; i <= n; i++) {
+            int count = 1;
+            char c = result.charAt(0);
+            StringBuilder temp = new StringBuilder();
+            for (int j = 1; j < result.length(); j++) {
+                if (c == result.charAt(j)) {
+                    count+=1;
+                } else {
+                    temp.append(count).append(c);
+                    count = 1;
+                    c = result.charAt(j);
+                }
+            }
+            if (c == result.charAt(result.length() - 1)) {
+                temp.append(count).append(c);
+            }
+            result = temp.toString();
+        }
+        return  result;
+
+        //1
+        //11
+        //21
+        //1211
+        //111221
+        //312211
+        //13112221
+        //1113213211
+        //31131211131221
+        //13211311123113112211
+        //11131221
+        //31121122
+        //1321122122
+        //1113
+
+
+    }
+
+    public String longestCommonPrefix(String[] strs) {
+        if (strs.length == 0 || strs[0].equals("")) {
+            return "";
+        }
+        char c = strs[0].charAt(0);
+        String shortStr = strs[0];
+        for (int i = 1; i < strs.length; i++) {
+
+            if (strs[i].equals("") || strs[i].charAt(0) != c) {
+                return "";
+            }
+            if (shortStr.length() > strs[i].length()) {
+                shortStr = strs[i];
+            }
+        }
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < shortStr.length(); i++) {
+            for (int j = 0; j < strs.length; j++) {
+                if (shortStr.charAt(i) != strs[j].charAt(i)) {
+                    return result.toString();
+                }
+            }
+            result.append(shortStr.charAt(i));
+        }
+        return result.toString();
+    }
+
+    public class ListNode {
+        int val;
+        ListNode next;
+
+        ListNode(int x) {
+            val = x;
+        }
+    }
+
+    //坑
+    public void deleteNode(ListNode node) {
+        node.val = node.next.val;
+        node.next = node.next.next;
+    }
+
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+
+    }
 
     public static void main(String[] args) {
         Test test = new Test();
@@ -254,7 +382,18 @@ public class Test {
 //        test.rotate(ints);
 
 //        System.out.println(test.reverse(-123));
-        System.out.println(test.firstUniqChar("dabbcb"));
+//        System.out.println(test.firstUniqChar("dabbcb"));
+//        System.out.println(0xdf);
+//        System.out.println(test.myAtoi("42"));
+//        System.out.println(test.myAtoi("2147483648"));
+//        System.out.println(Integer.MAX_VALUE);
+
+        System.out.println(test.countAndSay(1));
+        System.out.println(test.countAndSay(2));
+        System.out.println(test.countAndSay(3));
+        System.out.println(test.countAndSay(4));
+        System.out.println(test.countAndSay(5));
+        System.out.println(test.countAndSay(6));
     }
 
 
