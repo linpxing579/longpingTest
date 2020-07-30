@@ -21,7 +21,7 @@ public class Test {
             return nums[0];
         }
         for (int i = 1; i < nums.length - 1; i++) {
-            if (nums[i] != nums[i-1] && nums[i] != nums[i+1]) {
+            if (nums[i] != nums[i - 1] && nums[i] != nums[i + 1]) {
                 return nums[i];
             }
         }
@@ -34,12 +34,12 @@ public class Test {
         int index = 0;
         int count = 0;
         int i1 = 0;
-        int[] result = new int[nums1.length > nums2.length ? nums2.length :nums1.length];
+        int[] result = new int[nums1.length > nums2.length ? nums2.length : nums1.length];
         for (int i = 0; i < nums1.length; i++) {
             for (int j = index; j < nums2.length; j++) {
                 if (nums1[i] == nums2[j]) {
                     result[i1++] = nums1[i];
-                    index = j +1;
+                    index = j + 1;
                     break;
                 }
             }
@@ -51,15 +51,15 @@ public class Test {
         int[] result = new int[digits.length + 1];
         int index = digits.length;
         int plus = 1;
-        for (int i = digits.length -1 ; i > -1 ; i--) {
+        for (int i = digits.length - 1; i > -1; i--) {
             int sum = digits[i] + plus;
-            plus = sum/10;
-            result[index--] = sum%10;
+            plus = sum / 10;
+            result[index--] = sum % 10;
         }
 
         if (plus == 1) {
             result[0] = 1;
-           return result;
+            return result;
         }
         return Arrays.copyOfRange(result, 1, result.length);
     }
@@ -120,7 +120,7 @@ public class Test {
 
                 if (i < 3 && j < 3) {
                     index = 1;
-                } else if (i < 3 &&  j < 6) {
+                } else if (i < 3 && j < 6) {
                     index = 2;
                 } else if (i < 3) {
                     index = 3;
@@ -134,7 +134,7 @@ public class Test {
                     index = 7;
                 } else if (j < 6) {
                     index = 8;
-                } else  {
+                } else {
                     index = 9;
                 }
                 if (fang[index - 1][i1] != 0) {
@@ -165,7 +165,7 @@ public class Test {
 ]*/
         int n = matrix.length;
         for (int i = 0; i < n / 2; i++) {
-            for (int j = i ; j < n - i - 1; j++) {
+            for (int j = i; j < n - i - 1; j++) {
                 int temp = 0;
                 int value = matrix[i][j];
                 int row = i;
@@ -186,7 +186,7 @@ public class Test {
     public void reverseString(char[] s) {
         int len = s.length;
         for (int i = 0; i < len / 2; i++) {
-            char temp = s[len - i -1];
+            char temp = s[len - i - 1];
             s[len - i - 1] = s[i];
             s[i] = temp;
         }
@@ -196,8 +196,8 @@ public class Test {
     public int reverse(int x) {
         StringBuilder s = new StringBuilder(String.valueOf(x));
         String reverse = s.reverse().toString();
-        if (x <0) {
-            reverse = reverse.replace("-","");
+        if (x < 0) {
+            reverse = reverse.replace("-", "");
             reverse = "-" + reverse;
         }
 
@@ -222,7 +222,7 @@ public class Test {
         }
         int index = Integer.MAX_VALUE;
         for (int i = 0; i < 26; i++) {
-            if (temp[i] > 0 && temp[i] -1 < index) {
+            if (temp[i] > 0 && temp[i] - 1 < index) {
                 index = temp[i] - 1;
             }
         }
@@ -269,13 +269,13 @@ public class Test {
         for (int i = 0; i < str.length(); i++) {
             char c = str.charAt(i);
             if ((c < '0' || c > '9') && !(s.length() == 0 && (c == '-' || c == '+'))) {
-               break;
+                break;
             }
             s.append(c);
         }
-        if (s.length() == 1 && (s.charAt(0) == '-' || s.charAt(0) == '+') ) return 0;
+        if (s.length() == 1 && (s.charAt(0) == '-' || s.charAt(0) == '+')) return 0;
         long l = Long.parseLong(s.toString());
-        if (l > Integer.MAX_VALUE) return Integer.MAX_VALUE ;
+        if (l > Integer.MAX_VALUE) return Integer.MAX_VALUE;
         if (l < Integer.MIN_VALUE) return Integer.MIN_VALUE;
         return (int) l;
     }
@@ -296,7 +296,7 @@ public class Test {
             StringBuilder temp = new StringBuilder();
             for (int j = 1; j < result.length(); j++) {
                 if (c == result.charAt(j)) {
-                    count+=1;
+                    count += 1;
                 } else {
                     temp.append(count).append(c);
                     count = 1;
@@ -308,7 +308,7 @@ public class Test {
             }
             result = temp.toString();
         }
-        return  result;
+        return result;
 
         //1
         //11
@@ -370,17 +370,18 @@ public class Test {
         node.next = node.next.next;
     }
 
+    //错误，双链表
     public ListNode removeNthFromEnd(ListNode head, int n) {
         int count = 0;
         ListNode head2 = head;
         while (head2 != null) {
-            count+=1;
+            count += 1;
             head2 = head2.next;
         }
         head2 = head;
         int index = 0;
         while (head2 != null) {
-            if (index == count - n -1) {
+            if (index == count - n - 1) {
                 head2.next = head2.next.next;
                 break;
             }
@@ -395,7 +396,7 @@ public class Test {
         //index = 2, h = 3
     }
 
-    public ListNode create(){
+    public ListNode create() {
         ListNode head = new ListNode(1);
         ListNode head1 = head;
         for (int i = 2; i <= 5; i++) {
@@ -404,6 +405,142 @@ public class Test {
         }
         return head;
     }
+
+    public ListNode reverseList(ListNode head) {
+        if (head == null) {
+            return null;
+        }
+        ListNode temp = head;
+        ListNode next;
+        while (temp != null) {
+            next = temp.next;
+            temp.next = head;
+            head = temp;
+            temp = next;
+        }
+        return head;
+    }
+
+    //垃圾
+    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        if (l1 == null && l2 == null) {
+            return null;
+        } else if (l1 == null) {
+            return l2;
+        } else if (l2 == null) {
+            return l1;
+        }
+        ListNode first = null;
+        if (l1.val > l2.val) {
+            first = l2;
+            l2 = l2.next;
+        } else {
+            first = l1;
+            l1 = l1.next;
+        }
+        ListNode head = first;
+        ListNode cur;
+        while (l1 != null || l2 != null) {
+            if (l1 == null) {
+                cur = new ListNode(l2.val);
+                l2 = l2.next;
+            } else if (l2 == null) {
+                cur = new ListNode(l1.val);
+                l1 = l1.next;
+            } else if (l1.val > l2.val) {
+                cur = new ListNode(l2.val);
+                l2 = l2.next;
+            } else {
+                cur = new ListNode(l1.val);
+                l1 = l1.next;
+            }
+            first.next = cur;
+            first = cur;
+        }
+
+        return head;
+    }
+
+    //慢
+    public boolean isPalindrome(ListNode head) {
+
+        List<Integer> list = new ArrayList<>();
+        while (head != null) {
+            list.add(head.val);
+            head = head.next;
+        }
+        int j = list.size() - 1;
+        int i = 0;
+        while (i <= j) {
+            if (!list.get(i).equals(list.get(j))) {
+                return false;
+            }
+            i++;
+            j--;
+        }
+        return true;
+    }
+
+    //同环赛跑问题
+    public boolean hasCycle(ListNode head) {
+        while (head != null) {
+            if (head.val == Integer.MIN_VALUE) {
+                return true;
+            }
+            head.val = Integer.MIN_VALUE;
+            head = head.next;
+        }
+        return false;
+    }
+
+    public class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+        TreeNode(int x) {
+            val = x;
+        }
+    }
+
+    public int maxDepth(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        if (root.left == null && root.right == null) {
+            return 1;
+        }
+        int c1 = maxDepth(root.left);
+        int c2 = maxDepth(root.right);
+        return Math.max(c1, c2) + 1;
+    }
+
+    public boolean isValidBST(TreeNode root) {
+        if (root == null) {
+            return true;
+        }
+        if (root.left == null && root.right == null) {
+            return true;
+        }
+        boolean validBST = isValidBST(root.left);
+        if (root.left != null && validBST) {
+            validBST = root.val > root.left.val;
+        }
+        boolean validBST1 = isValidBST(root.right);
+        if (root.right != null && validBST1) {
+            validBST1 = root.val < root.right.val;
+        }
+
+        return validBST1 && validBST;
+    }
+
+    public TreeNode createTree() {
+        TreeNode treeNode = new TreeNode(1);
+        TreeNode treeNode1 = new TreeNode(1);
+        treeNode.left = treeNode1;
+        return treeNode;
+    }
+
 
     public static void main(String[] args) {
         Test test = new Test();
@@ -420,7 +557,8 @@ public class Test {
 //        System.out.println(Integer.MAX_VALUE);
 
 //        System.out.println(test.countAndSay(1));
-        System.out.println(test.removeNthFromEnd(test.create(),2));
+//        System.out.println(test.removeNthFromEnd(test.create(),2));
+        System.out.println(test.isValidBST(test.createTree()));
     }
 
 
