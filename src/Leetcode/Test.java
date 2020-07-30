@@ -371,7 +371,38 @@ public class Test {
     }
 
     public ListNode removeNthFromEnd(ListNode head, int n) {
+        int count = 0;
+        ListNode head2 = head;
+        while (head2 != null) {
+            count+=1;
+            head2 = head2.next;
+        }
+        head2 = head;
+        int index = 0;
+        while (head2 != null) {
+            if (index == count - n -1) {
+                head2.next = head2.next.next;
+                break;
+            }
+            index += 1;
+            head2 = head2.next;
+        }
 
+        return head;
+
+        // index = 0 ,head2 = 1
+        // index = 1 ,h = 2
+        //index = 2, h = 3
+    }
+
+    public ListNode create(){
+        ListNode head = new ListNode(1);
+        ListNode head1 = head;
+        for (int i = 2; i <= 5; i++) {
+            head1.next = new ListNode(i);
+            head1 = head1.next;
+        }
+        return head;
     }
 
     public static void main(String[] args) {
@@ -388,12 +419,8 @@ public class Test {
 //        System.out.println(test.myAtoi("2147483648"));
 //        System.out.println(Integer.MAX_VALUE);
 
-        System.out.println(test.countAndSay(1));
-        System.out.println(test.countAndSay(2));
-        System.out.println(test.countAndSay(3));
-        System.out.println(test.countAndSay(4));
-        System.out.println(test.countAndSay(5));
-        System.out.println(test.countAndSay(6));
+//        System.out.println(test.countAndSay(1));
+        System.out.println(test.removeNthFromEnd(test.create(),2));
     }
 
 
