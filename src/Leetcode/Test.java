@@ -411,6 +411,7 @@ public class Test {
             return null;
         }
         ListNode temp = head;
+        head = null;
         ListNode next;
         while (temp != null) {
             next = temp.next;
@@ -515,6 +516,7 @@ public class Test {
         return Math.max(c1, c2) + 1;
     }
 
+    //只能保证小中大
     public boolean isValidBST(TreeNode root) {
         if (root == null) {
             return true;
