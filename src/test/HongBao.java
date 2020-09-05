@@ -23,6 +23,9 @@ public class HongBao {
             int x = (totalAmount << 1) / i;
             int random = ThreadLocalRandom.current().nextInt(1, x);
             list.add(random);
+//            if (random > 20 && totalNumber == 9) {
+//                System.out.println("x:"+x+",random:"+random+"");
+//            }
             totalAmount -= random;
         }
         list.add(totalAmount);
@@ -30,6 +33,7 @@ public class HongBao {
         return list;
     }
 
+    // 100 10 10*2=20
 
     //线段分隔法
     public List<Integer> test2(int totalAmount, int totalNumber){
@@ -56,8 +60,20 @@ public class HongBao {
 
     @Test
     public void test(){
-        List<Integer> list = test2(10, 9);
-        System.out.println(list);
-        for (Integer integer : list) System.out.println(new BigDecimal(integer).divide(new BigDecimal(100)));
+        for (int i = 0; i < 10; i++) {
+
+            List<Integer> list = test1(100, 10);
+            System.out.println(list);
+        }
+//        for (Integer integer : list) System.out.println(new BigDecimal(integer).divide(new BigDecimal(100)));
+    }
+
+    @Test
+    public void test1(){
+        for (int i = 0; i < 100; i++) {
+            int random = ThreadLocalRandom.current().nextInt(1, 20);
+            System.out.println(random);
+        }
+//        for (Integer integer : list) System.out.println(new BigDecimal(integer).divide(new BigDecimal(100)));
     }
 }
