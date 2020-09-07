@@ -543,6 +543,81 @@ public class Test {
         return treeNode;
     }
 
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        int index = nums1.length - 1;
+        m = m - 1;
+        n = n - 1;
+        while (n >= 0 && m >= 0) {
+            if (nums1[m] > nums2[n]) {
+                nums1[index--] = nums1[m];
+                nums1[m] = 0;
+                m--;
+            } else {
+                nums1[index--] = nums2[n];
+                n--;
+            }
+        }
+        while (n >= 0) {
+            nums1[index--] = nums2[n--];
+        }
+        while (m >= 0) {
+            nums1[index--] = nums1[m--];
+        }
+    }
+
+    public boolean isBadVersion(int version) {
+        if (version >= 5) {
+            return true;
+        }
+        return false;
+    }
+
+    public int firstBadVersion(int n) {
+        int left = 0;
+        int half = 0;
+        while (left < n) {
+            half = left + (n - left) / 2;
+            if (isBadVersion(half)) {
+                n = half;
+            } else {
+                left = half + 1;
+            }
+        }
+        return left;
+    }
+
+
+    // 1 1
+    //2 (1,1) (2)
+    //f(n) = f(n -1) + f(n - 2)
+    public int climbStairs(int n) {
+        if (n == 1) {
+            return 1;
+        }
+        if (n == 2) {
+            return 2;
+        }
+        if (n == 3) {
+            return 3;
+        }
+        return climbStairs(n - 1) + climbStairs(n - 2) ;
+    }
+
+    public int maxProfit(int[] prices) {
+        int len = prices.length;
+        if (len < 2) {
+            return 0;
+        }
+        int[][] dp = new int[len][2];
+        dp[0][0] = 0;
+        dp[0][1] = -prices[0];
+        for (int i = 1; i < len; i++) {
+            dp[i][0] = Math.max(dp[i - 1][0], dp[i - 1][1] + prices[i]);
+            dp[i][1] = Math.max(dp[i - 1][1], -prices[i]);
+        }
+        return dp[len-1][0];
+    }
+
 
     public static void main(String[] args) {
         Test test = new Test();
@@ -560,7 +635,9 @@ public class Test {
 
 //        System.out.println(test.countAndSay(1));
 //        System.out.println(test.removeNthFromEnd(test.create(),2));
-        System.out.println(test.isValidBST(test.createTree()));
+//        System.out.println(test.isValidBST(test.createTree()));
+//        System.out.println(test.firstBadVersion(5));
+        System.out.println(test.climbStairs(4));
     }
 
 
