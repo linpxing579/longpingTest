@@ -516,25 +516,25 @@ public class Test {
         return Math.max(c1, c2) + 1;
     }
 
-    //只能保证小中大
     public boolean isValidBST(TreeNode root) {
+       return helper(root, null, null);
+    }
+
+    public boolean helper(TreeNode root, Integer min, Integer max){
         if (root == null) {
             return true;
         }
-        if (root.left == null && root.right == null) {
-            return true;
-        }
-        boolean validBST = isValidBST(root.left);
-        if (root.left != null && validBST) {
-            validBST = root.val > root.left.val;
-        }
-        boolean validBST1 = isValidBST(root.right);
-        if (root.right != null && validBST1) {
-            validBST1 = root.val < root.right.val;
-        }
 
-        return validBST1 && validBST;
+        int val = root.val;
+        if (min != null && val <= min) return false;
+        if (max != null && val >= max) return false;
+
+        if (!helper(root.left, min, val)) return false;
+        if (!helper(root.right, val, max)) return false;
+        return true;
     }
+
+
 
     public TreeNode createTree() {
         TreeNode treeNode = new TreeNode(1);
