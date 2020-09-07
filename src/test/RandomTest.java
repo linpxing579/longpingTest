@@ -11,6 +11,7 @@ public class RandomTest {
     @Test
     public void test3() {
         int count = 0;
+
         List<Integer> list = Lists.newArrayList();
         while (count > 6604300 || count < 6604200) {
             list = Lists.newArrayList();
@@ -19,6 +20,9 @@ public class RandomTest {
                 int random = ThreadLocalRandom.current().nextInt(2432, 32586);
                 list.add(random);
                 count += random;
+                if (count > 6604300 || count < 6604200) {
+                    break;
+                }
             }
         }
         System.out.println(count);
@@ -82,10 +86,10 @@ public class RandomTest {
     public void test6() {
         int count = 0;
         List<Integer> list = Lists.newArrayList();
-        int target = 6604212;
-        int left = 2432;
-        int right = 32586;
-        int num = 1216;
+        int target = 941864;
+        int left = 0;
+        int right = 9300;
+        int num = 367;
         for (int i = 0; i < num; i++) {
             int random = ThreadLocalRandom.current().nextInt(left, right);
             list.add(random);
@@ -99,7 +103,8 @@ public class RandomTest {
                 int i = ThreadLocalRandom.current().nextInt(num);
                 int original = list.get(i);
                 int max = original - left;
-                int min = max > left ? left : 0;
+//                int min = max > left ? left : 0;
+                int min = 0;
                 int subValue = ThreadLocalRandom.current().nextInt(min, max);
                 if (count < max) {
                     subValue = count;
@@ -110,7 +115,7 @@ public class RandomTest {
                 list.set(i, original - subValue);
                 count -= subValue;
             }
-        }else if (count < target) {
+        } else if (count < target) {
             count = target - count;
             while (count > 0) {
                 int i = ThreadLocalRandom.current().nextInt(num);

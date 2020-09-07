@@ -1,6 +1,7 @@
 package test;
 
 import bean.User;
+import com.lpmas.framework.util.JsonKit;
 import com.lpmas.framework.util.NumberKit;
 import com.lpmas.framework.util.NumeralOperationKit;
 import org.junit.Test;
@@ -237,5 +238,40 @@ public class test {
         System.out.println((a-b));
         System.out.println( (b-c));
 
+    }
+
+    @Test
+    public void test10(){
+        long start = System.currentTimeMillis();
+        int count = 0;
+        for (int i = 0; i < 100000; i++) {
+            if (i % 2 == 0) {
+                count ++;
+            }
+        }
+        long end = System.currentTimeMillis();
+        System.out.println(end - start);
+        count = 0;
+        start = System.currentTimeMillis();
+        for (int i = 0; i < 100000; i++) {
+            if ((i & 2) == 0) {
+                count ++;
+            }
+        }
+
+        end = System.currentTimeMillis();
+        System.out.println(end - start);
+    }
+
+    @Test
+    public void test11(){
+
+
+        List<Integer> list = new ArrayList<>();
+        for (int i = 0; i < 10000; i++) {
+            list.add(i);
+        }
+        IntSummaryStatistics intSummaryStatistics = list.stream().mapToInt(Integer::intValue).summaryStatistics();
+        System.out.println(intSummaryStatistics.toString());
     }
 }
