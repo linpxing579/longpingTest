@@ -517,10 +517,10 @@ public class Test {
     }
 
     public boolean isValidBST(TreeNode root) {
-       return helper(root, null, null);
+        return helper(root, null, null);
     }
 
-    public boolean helper(TreeNode root, Integer min, Integer max){
+    public boolean helper(TreeNode root, Integer min, Integer max) {
         if (root == null) {
             return true;
         }
@@ -533,7 +533,6 @@ public class Test {
         if (!helper(root.right, val, max)) return false;
         return true;
     }
-
 
 
     public TreeNode createTree() {
@@ -597,10 +596,7 @@ public class Test {
         if (n == 2) {
             return 2;
         }
-        if (n == 3) {
-            return 3;
-        }
-        return climbStairs(n - 1) + climbStairs(n - 2) ;
+        return climbStairs(n - 1) + climbStairs(n - 2);
     }
 
     public int maxProfit(int[] prices) {
@@ -615,9 +611,96 @@ public class Test {
             dp[i][0] = Math.max(dp[i - 1][0], dp[i - 1][1] + prices[i]);
             dp[i][1] = Math.max(dp[i - 1][1], -prices[i]);
         }
-        return dp[len-1][0];
+        return dp[len - 1][0];
     }
 
+    //f(n) = max(f(n- 1) + n , n)
+    public int maxSubArray(int[] nums) {
+        int sum = 0;
+        int max = nums[0];
+        for (int i = 0; i < nums.length; i++) {
+            if (sum > 0) {
+                sum += nums[i];
+            } else {
+                sum = nums[i];
+            }
+            max = Math.max(max, sum);
+        }
+        return max;
+    }
+
+    //f(n) = max(f(n -2), f(n -3) )
+    //f(n) = max(f(n -2) + n , f(n-1))
+    public int rob(int[] nums) {
+        int length = nums.length;
+        int max = 0;
+        int[] total = new int[length];
+        for (int i = 0; i < length; i++) {
+            int t2 = i - 2 >= 0 ? total[i - 2] : 0;
+            int t3 = i - 3 >= 0 ? total[i - 3] : 0;
+            int to = Math.max(t2, t3) + nums[i];
+            total[i] = to;
+            max = Math.max(max, to);
+        }
+        return max;
+    }
+
+
+    public List<String> fizzBuzz(int n) {
+        List<String> list = new ArrayList<>(n);
+        for (int i = 1; i <= n; i++) {
+            if (i % 3 == 0 && i % 5 == 0) {
+                list.add("FizzBuzz");
+            } else if (i % 3 == 0) {
+                list.add("Fizz");
+            } else if (i % 5 == 0) {
+                list.add("Buzz");
+            } else {
+                list.add(String.valueOf(i));
+            }
+        }
+        return list;
+    }
+
+    public int countPrimes(int n) {
+        boolean[] isPrim = new boolean[n];
+        Arrays.fill(isPrim, true);
+        for (int i = 2; i * i < n; i++)
+            if (isPrim[i])
+                for (int j = i * i; j < n; j += i)
+                    isPrim[j] = false;
+
+        int count = 0;
+        for (int i = 2; i < n; i++)
+            if (isPrim[i]) count++;
+
+        return count;
+    }
+
+    // 判断整数 n 是否是素数
+    public boolean isPrim(int n) {
+        for (int i = 2; i < n; i++)
+            if (n % i == 0)
+                return false;
+        return true;
+    }
+
+    public boolean isPowerOfThree(int n) {
+        if (n < 1) {
+            return false;
+        }
+
+        while (n % 3 == 0) {
+            n /= 3;
+        }
+
+        return n == 1;
+    }
+
+    public int hammingWeight(int n) {
+        String s = Integer.toString(n, 2);
+        return 0;
+    }
 
     public static void main(String[] args) {
         Test test = new Test();
@@ -637,7 +720,14 @@ public class Test {
 //        System.out.println(test.removeNthFromEnd(test.create(),2));
 //        System.out.println(test.isValidBST(test.createTree()));
 //        System.out.println(test.firstBadVersion(5));
-        System.out.println(test.climbStairs(4));
+//        System.out.println(test.climbStairs(4));
+//        int[] nums = new int[]{-2, 1, -3, 4, -1, 2, 1, -5, 4};
+//        System.out.println(test.maxSubArray(nums));
+//        int[] nums = new int[]{1, 2, 3, 1};
+//        int[] nums2 = new int[]{2, 7, 9, 3, 1};
+//        System.out.println(test.rob(nums));
+//        System.out.println(test.isPowerOfThree(27));
+        System.out.println(Integer.toString(-3, 2));
     }
 
 
