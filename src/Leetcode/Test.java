@@ -698,8 +698,21 @@ public class Test {
     }
 
     public int hammingWeight(int n) {
-        String s = Integer.toString(n, 2);
-        return 0;
+        int sum = 0;
+        while (n != 0) {
+            sum++;
+            n &= (n - 1);
+        }
+        return sum;
+    }
+
+    public int hammingDistance(int x, int y) {
+        int xor = x ^ y;
+        int c = 0;
+        for (c = 0; c < xor; c++) {
+            xor &= (xor - 1);
+        }
+        return c;
     }
 
     public static void main(String[] args) {
@@ -728,6 +741,8 @@ public class Test {
 //        System.out.println(test.rob(nums));
 //        System.out.println(test.isPowerOfThree(27));
         System.out.println(Integer.toString(-3, 2));
+        System.out.println(test.hammingWeight(-3));
+//        System.out.println(test.hammingDistance(1, 4));
     }
 
 
