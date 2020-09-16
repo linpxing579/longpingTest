@@ -715,6 +715,42 @@ public class Test {
         return c;
     }
 
+    public int reverseBits(int n) {
+        return Integer.reverse(n);
+    }
+
+    public List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> result = new ArrayList<>();
+        List<Integer> rows;
+        for (int i = 1; i <= numRows; i++) {
+            rows = new ArrayList<>();
+            rows.add(1);
+            for (int j = 1; j < i - 1; j++) {
+                rows.add(result.get(i - 2).get(j - 1) + result.get(i - 2).get(j));
+            }
+            if (i != 1) rows.add(1);
+            result.add(rows);
+        }
+        return result;
+    }
+
+
+    public int missingNumber(int[] nums) {
+
+        int n = nums.length + 1;
+        int[] flag = new int[n];
+        for (int num : nums) {
+            flag[num] = 1;
+        }
+
+        for (int i = 0; i < n; i++) {
+            if (flag[i] == 0) {
+                return i;
+            }
+        }
+        return 0;
+    }
+
     public static void main(String[] args) {
         Test test = new Test();
 //        char[][] re = {{'5','3','.','.','7','.','.','.','.'},{'6','.','.','1','9','5','.','.','.'},{'.','9','8','.','.','.','.','6','.'},{'8','.','.','.','6','.','.','.','3'},{'4','.','.','8','.','3','.','.','1'},{'7','.','.','.','2','.','.','.','6'},{'.','6','.','.','.','.','2','8','.'},{'.','.','.','4','1','9','.','.','5'},{'.','.','.','.','8','.','.','7','9'}};
@@ -740,9 +776,10 @@ public class Test {
 //        int[] nums2 = new int[]{2, 7, 9, 3, 1};
 //        System.out.println(test.rob(nums));
 //        System.out.println(test.isPowerOfThree(27));
-        System.out.println(Integer.toString(-3, 2));
-        System.out.println(test.hammingWeight(-3));
+//        System.out.println(Integer.toString(-3, 2));
+//        System.out.println(test.hammingWeight(-3));
 //        System.out.println(test.hammingDistance(1, 4));
+        System.out.println(test.generate(4));
     }
 
 
