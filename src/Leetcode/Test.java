@@ -534,6 +534,37 @@ public class Test {
         return true;
     }
 
+    //对称二叉树
+    public boolean isSymmetric(TreeNode root) {
+
+        if(root == null){
+            return false;
+        }
+        return comRoot(root.left, root.right);
+    }
+    public static boolean comRoot(TreeNode left, TreeNode right){
+        if(left == null){
+            return right == null;
+        }
+        if(right == null){
+            return false;
+        }
+        if(left.val != right.val){
+            return false;
+        }
+
+        return comRoot(left.left, right.right) && comRoot(left.right, right.left);
+    }
+
+    public List<List<Integer>> levelOrder(TreeNode root) {
+
+        List<List<Integer>> list = new ArrayList<>();
+
+        return list;
+    }
+
+
+
 
     public TreeNode createTree() {
         TreeNode treeNode = new TreeNode(1);
@@ -749,6 +780,16 @@ public class Test {
             }
         }
         return 0;
+    }
+
+    public int missingNumber1(int[] nums){
+        int res = nums.length;
+
+        for (int i = 0; i < nums.length; i++) {
+            res = res ^ nums[i];
+            res = res ^ i;
+        }
+        return res;
     }
 
     public static void main(String[] args) {
