@@ -559,17 +559,59 @@ public class Test {
     public List<List<Integer>> levelOrder(TreeNode root) {
 
         List<List<Integer>> list = new ArrayList<>();
-
+        levelOrder2(list, root, 0);
         return list;
     }
 
+    public void levelOrder2(List<List<Integer>> result, TreeNode root, int index){
 
+        if (root == null) return;
+        if (result.size() < index + 1) {
+            result.add(new ArrayList<>());
+        }
+        result.get(index).add(root.val);
+        levelOrder2(result, root.left, index+1);
+        levelOrder2(result, root.right, index+1);
+    }
 
+    //[-10,-3,0,5,9],
+    public TreeNode sortedArrayToBST(int[] nums) {
+        return helper(nums, 0, nums.length-1);
+    }
+
+    public TreeNode helper(int[] nums, int from, int to) {
+        if ( from > to) return null;
+        int mid = (from + to) / 2;
+        TreeNode root = new TreeNode(nums[mid]);
+        root.left = helper(nums, from, mid - 1);
+        root.right = helper(nums, mid + 1, to);
+        return root;
+    }
+
+    public TreeNode helper2(int[] nums, int from, int to) {
+        if (from > to) {
+            return null;
+        }
+
+        // 总是选择中间位置左边的数字作为根节点
+        int mid = (from + to) / 2;
+
+        TreeNode root = new TreeNode(nums[mid]);
+        root.left = helper2(nums, from, mid - 1);
+        root.right = helper2(nums, mid + 1, to);
+        return root;
+    }
 
     public TreeNode createTree() {
-        TreeNode treeNode = new TreeNode(1);
-        TreeNode treeNode1 = new TreeNode(1);
+        TreeNode treeNode = new TreeNode(3);
+        TreeNode treeNode1 = new TreeNode(9);
+        TreeNode treeNode2 = new TreeNode(20);
+        TreeNode treeNode3 = new TreeNode(15);
+        TreeNode treeNode4 = new TreeNode(7);
         treeNode.left = treeNode1;
+        treeNode.right = treeNode2;
+        treeNode2.left = treeNode3;
+        treeNode2.right = treeNode4;
         return treeNode;
     }
 
@@ -820,7 +862,8 @@ public class Test {
 //        System.out.println(Integer.toString(-3, 2));
 //        System.out.println(test.hammingWeight(-3));
 //        System.out.println(test.hammingDistance(1, 4));
-        System.out.println(test.generate(4));
+//        System.out.println(test.generate(4));
+        System.out.println(test.levelOrder(test.createTree()));
     }
 
 
