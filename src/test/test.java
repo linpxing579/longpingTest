@@ -4,6 +4,11 @@ import bean.User;
 import com.lpmas.framework.util.JsonKit;
 import com.lpmas.framework.util.NumberKit;
 import com.lpmas.framework.util.NumeralOperationKit;
+import net.sourceforge.pinyin4j.PinyinHelper;
+import net.sourceforge.pinyin4j.format.HanyuPinyinCaseType;
+import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
+import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
+import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombination;
 import org.junit.Test;
 
 import java.util.*;
@@ -273,5 +278,20 @@ public class test {
         }
         IntSummaryStatistics intSummaryStatistics = list.stream().mapToInt(Integer::intValue).summaryStatistics();
         System.out.println(intSummaryStatistics.toString());
+        List<Integer> collect = list.stream().skip(0).limit(0).collect(Collectors.toList());
+        for (Integer integer : collect) {
+            System.out.println(integer);
+        }
+    }
+
+    @Test
+    public void test12() throws BadHanyuPinyinOutputFormatCombination {
+        HanyuPinyinOutputFormat defaultFormat = new HanyuPinyinOutputFormat();
+        defaultFormat.setCaseType(HanyuPinyinCaseType.LOWERCASE);
+        defaultFormat.setToneType(HanyuPinyinToneType.WITHOUT_TONE);
+        String[] strings = PinyinHelper.toHanyuPinyinStringArray('林', defaultFormat);
+        for (String string : strings) {
+            System.out.println(string);
+        }
     }
 }
