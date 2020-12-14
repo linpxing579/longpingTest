@@ -135,3 +135,10 @@
 //        }
 //    }
 //}
+
+/*
+public void safedUnLock(String key, String val) {
+        String luaScript = "local in = ARGV[1] local curr=redis.call('get', KEYS[1]) if in==curr then redis.call('del', KEYS[1]) end return 'OK'"";
+        RedisScript<String> redisScript = RedisScript.of(luaScript);
+        redisTemplate.execute(redisScript, Collections.singletonList(key), Collections.singleton(val));
+        }*/
