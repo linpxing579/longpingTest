@@ -834,6 +834,44 @@ public class Test {
         return res;
     }
 
+    /**
+     * Description: 两个有序数组，求中位数
+     * @author linpxing
+     * @param nums1: 数组1
+     * @param nums2: 数组2
+     * @return: double 中位数
+     **/
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        int m = nums1.length;
+        int n = nums2.length;
+        int midd = (m + n) / 2;
+        midd = (m + n) % 2 == 0 ? midd - 1 : midd;
+        int count = (m + n) % 2== 0 ? 2 : 1;
+        double result = 0;
+        for (int index = 0, i = 0, j= 0; index < n + m; index++) {
+            int num = 0;
+            if (i >= m) {
+                num = nums2[j++];
+            } else if (j >= n) {
+                num = nums1[i++];
+            } else if (nums1[i] > nums2[j]) {
+                num = nums2[j++];
+            } else {
+                num = nums1[i++];
+            }
+            if (index == midd) {
+                result += num;
+                count --;
+                if (count > 0) {
+                    midd ++;
+                } else {
+                    break;
+                }
+            }
+        }
+        return (m + n) % 2 ==0 ? (result/2) : result;
+    }
+
     public static void main(String[] args) {
         Test test = new Test();
 //        char[][] re = {{'5','3','.','.','7','.','.','.','.'},{'6','.','.','1','9','5','.','.','.'},{'.','9','8','.','.','.','.','6','.'},{'8','.','.','.','6','.','.','.','3'},{'4','.','.','8','.','3','.','.','1'},{'7','.','.','.','2','.','.','.','6'},{'.','6','.','.','.','.','2','8','.'},{'.','.','.','4','1','9','.','.','5'},{'.','.','.','.','8','.','.','7','9'}};

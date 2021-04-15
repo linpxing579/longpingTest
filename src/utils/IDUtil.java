@@ -18,7 +18,7 @@ public class IDUtil {
 
     private static final Pattern PATTERN_LONG_ID = Pattern.compile("^([0-9]{15})([0-9a-f]{32})([0-9a-f]{3})$");
 
-    private static final long OFFSET = LocalDate.of(2020, 6, 3).atStartOfDay(ZoneId.of("Z")).toEpochSecond();
+    private static final long OFFSET = LocalDate.of(1970, 1, 1).atStartOfDay(ZoneId.of("Z")).toEpochSecond();
 
     private static final long MAX_NEXT = 0b11111_11111111_111L;
 
@@ -72,6 +72,14 @@ public class IDUtil {
         return generateId(SHARD_ID, epochSecond, next);
     }
 
+    /**
+     * Description:
+     * @author linpxing
+     * @param shardId: 主机ID 占15位
+     * @param epochSecond: 时间戳 占32位
+     * @param next: 序列号 占16位
+     * @return: long
+     **/
     private static long generateId(long shardId, long epochSecond, long next) {
         return shardId << 48 | (epochSecond - OFFSET) << 16 | next;
     }
@@ -96,6 +104,7 @@ public class IDUtil {
 //    }
 
     public static void main(String[] args) throws UnknownHostException {
+        //845739404690408
         for (int i = 0; i < 1000; i++) {
             System.out.println(IDUtil.nextId());
         }
