@@ -77,6 +77,42 @@ public class IOTest {
         }
     }
 
+    @Test
+    public void testBufferStream2() {
+        byte[] buff = new byte[512];
+        InputStream inputStream = null;
+        BufferedInputStream bufferedInputStream = null;
+        OutputStream outputStream = null;
+        BufferedOutputStream bufferedOutputStream = null;
+
+        try {
+            inputStream = new FileInputStream("C:\\Users\\Lpmas\\Desktop\\端口.txt");
+            bufferedInputStream = new BufferedInputStream(inputStream);
+
+            outputStream = new FileOutputStream("C:\\Users\\Lpmas\\Desktop\\端口-copy.txt");
+            bufferedOutputStream = new BufferedOutputStream(outputStream);
+            int num = 0;
+            while ((num = bufferedInputStream.read(buff, 0, buff.length)) != -1) {
+                bufferedOutputStream.write(buff, 0, num);
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (bufferedInputStream != null) {
+                    bufferedInputStream.close();
+                }
+                if (bufferedOutputStream != null) {
+                    bufferedOutputStream.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     /**
      * Description: 字符流 读出字符
      *
@@ -131,6 +167,22 @@ public class IOTest {
                 writer.close();
             } catch (IOException e) {
                 e.printStackTrace();
+            }
+        }
+    }
+
+    @Test
+    public void testFileDir(){
+        File dir = new File("C:\\Users\\Lpmas\\Desktop\\templates");
+        printFileName(dir);
+    }
+
+    public void printFileName(File dir){
+        if (dir.isDirectory()) {
+            File[] listFiles = dir.listFiles();
+            for (File file : listFiles) {
+                System.out.println(file.getName());
+                printFileName(file);
             }
         }
     }
