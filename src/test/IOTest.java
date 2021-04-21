@@ -3,6 +3,8 @@ package test;
 import org.junit.Test;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class IOTest {
 
@@ -172,12 +174,12 @@ public class IOTest {
     }
 
     @Test
-    public void testFileDir(){
+    public void testFileDir() {
         File dir = new File("C:\\Users\\Lpmas\\Desktop\\templates");
         printFileName(dir);
     }
 
-    public void printFileName(File dir){
+    public void printFileName(File dir) {
         if (dir.isDirectory()) {
             File[] listFiles = dir.listFiles();
             for (File file : listFiles) {
@@ -185,5 +187,12 @@ public class IOTest {
                 printFileName(file);
             }
         }
+    }
+
+    @Test
+    public void test1() {
+        //判断一个数组中，一个数字出现两次，其他数字都是一次，
+        // int[] arrays = new int[]{-1,0,1,2,-1,-4};
+        int[] arrays = new int[]{-3, -2, -5, 3, -4};
     }
 }
