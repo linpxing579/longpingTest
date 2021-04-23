@@ -1,10 +1,11 @@
 package test;
 
 import org.junit.Test;
+import org.springframework.util.FileCopyUtils;
+import utils.VerifyUtils;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Properties;
 
 public class IOTest {
 
@@ -182,17 +183,59 @@ public class IOTest {
     public void printFileName(File dir) {
         if (dir.isDirectory()) {
             File[] listFiles = dir.listFiles();
+            FileInputStream inputStream = null;
+            FileOutputStream outputStream = null;
             for (File file : listFiles) {
                 System.out.println(file.getName());
                 printFileName(file);
+                try {
+                    inputStream = new FileInputStream(file);
+                    String str = "";
+                    int index = -1;
+                    String name = "";
+                    byte[] buff = new byte[1024];
+                    while ((index = inputStream.read(buff, 0, buff.length)) != -1) {
+                        if (VerifyUtils.verifyMobile(str)) {
+                            name = "";
+                            break;
+                        }
+                    }
+
+                    File file1 = new File(file.getAbsolutePath() + name);
+                    file.renameTo(file1);
+                    // outputStream = new FileOutputStream(file1);
+                    // while ((index = inputStream.read(buff, 0, buff.length)) != -1) {
+                    //     outputStream.write(buff, 0, index);
+                    // }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    try {
+                        if (inputStream != null) {
+                            inputStream.close();
+                        }
+                        if (outputStream != null) {
+                            outputStream.close();
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         }
     }
 
     @Test
-    public void test1() {
-        //判断一个数组中，一个数字出现两次，其他数字都是一次，
-        // int[] arrays = new int[]{-1,0,1,2,-1,-4};
-        int[] arrays = new int[]{-3, -2, -5, 3, -4};
+    public void testFileReader() {
+        try {
+            FileReader reader = new FileReader("test/config.properties");
+            Properties properties = new Properties();
+            properties.load(reader);
+            reader.close();
+            String test = properties.getProperty("test");
+            System.out.println(test);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
