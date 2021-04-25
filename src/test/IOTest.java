@@ -196,13 +196,17 @@ public class IOTest {
                     byte[] buff = new byte[1024];
                     while ((index = inputStream.read(buff, 0, buff.length)) != -1) {
                         if (VerifyUtils.verifyMobile(str)) {
-                            name = "";
+                            name = "1234";
                             break;
                         }
                     }
 
                     File file1 = new File(file.getAbsolutePath() + name);
-                    file.renameTo(file1);
+                    boolean b = file.renameTo(file1);
+                    if (!b) {
+                        //
+                        System.out.println(file.getName() + ":重命名失败" );
+                    }
                     // outputStream = new FileOutputStream(file1);
                     // while ((index = inputStream.read(buff, 0, buff.length)) != -1) {
                     //     outputStream.write(buff, 0, index);
