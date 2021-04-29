@@ -379,6 +379,7 @@ public class HashMap<K,V> extends AbstractMap<K,V>
     /**
      * Returns a power of two size for the given target capacity.
      */
+    // cap - 1 是为了将原本就是2^n值进行转换
     //目的是获取大于等于cap的2^n值??
     //移位，获得大于等于cap的2^n值
     //为什么需要1，2，4，8，16？确保31位
@@ -646,13 +647,18 @@ public class HashMap<K,V> extends AbstractMap<K,V>
             //将当前对象赋给e
                 e = p;
             else if (p instanceof TreeNode)
+                //如果树形节点，则创建红黑树节点
                 e = ((TreeNode<K,V>)p).putTreeVal(this, tab, hash, key, value);
             else {
+                //创建普通链表节点
                 //数组链表第一个位置不匹配，遍历链表寻找位置
                 for (int binCount = 0; ; ++binCount) {
                     //寻找链表上的空位置
                     if ((e = p.next) == null) {
                         p.next = newNode(hash, key, value, null);
+                        //如果冲突的节点数已经达到8个，看是否需要改变冲突节点的存储结构，　　　　　　　　　　　　　
+                        //treeifyBin首先判断当前hashMap的长度，如果不足64，只进行
+                        //resize，扩容table，如果达到64，那么将冲突的存储结构为红黑树
                         if (binCount >= TREEIFY_THRESHOLD - 1) // -1 for 1st
                             treeifyBin(tab, hash);
                         break;
@@ -672,6 +678,7 @@ public class HashMap<K,V> extends AbstractMap<K,V>
             }
         }
         ++modCount;
+        /*如果当前大小大于门限，门限原本是初始容量*0.75*/
         if (++size > threshold)
             resize();
         afterNodeInsertion(evict);
@@ -768,6 +775,7 @@ public class HashMap<K,V> extends AbstractMap<K,V>
      */
     final void treeifyBin(Node<K,V>[] tab, int hash) {
         int n, index; Node<K,V> e;
+        //数组，如果长度小于64则进行扩容，否则进行红黑树转换
         if (tab == null || (n = tab.length) < MIN_TREEIFY_CAPACITY)
             resize();
         else if ((e = tab[index = (n - 1) & hash]) != null) {
