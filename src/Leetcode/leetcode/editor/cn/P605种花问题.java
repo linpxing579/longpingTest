@@ -40,6 +40,7 @@ class P605种花问题 {
     public static void main(String[] args) {
         Solution solution = new P605种花问题().new Solution();
         // TO TEST
+        System.out.println(solution.canPlaceFlowers(new int[]{1,0,0,0,0,1}, 2));
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
@@ -48,23 +49,20 @@ class P605种花问题 {
             if (flowerbed.length == 1) {
                 return flowerbed[0] == 0 ? n <= 1 : n == 0;
             }
-            for (int i = 0; i < flowerbed.length; i++) {
+
+            int index = 0;
+            while (index < flowerbed.length) {
                 if (n <= 0) {
                     return true;
                 }
-                if (flowerbed[i] == 0) {
-                    if (i == flowerbed.length - 1) {
-                        n--;
-                        break;
-                    }
-                    if (flowerbed[i + 1] == 0) {
-                        n--;
-                        flowerbed[i] = 1;
-                        i++;
-                    }
-                } else {
-                    i++;
+                if (flowerbed[index] == 0 && (index == flowerbed.length - 1 || flowerbed[index + 1] == 0)) {
+                    n--;
+                    flowerbed[index] = 1;
                 }
+                if (flowerbed[index] == 1) {
+                    index++;
+                }
+                index++;
             }
             return n == 0;
         }
